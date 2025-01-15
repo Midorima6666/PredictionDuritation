@@ -1,0 +1,8 @@
+streamlit
+fastapi
+uvicorn
+xgboost
+scikit-learn
+joblib
+folium
+streamlit-folium
