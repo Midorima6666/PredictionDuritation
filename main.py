@@ -20,8 +20,9 @@ async def read_root():
 
 @app.get("/streamlit")
 async def streamlit_app():
-    # Запуск Streamlit приложения
-    subprocess.Popen(["streamlit", "run", "app.py"])
-    return HTMLResponse("Streamlit app is running...")
+    # Запуск Streamlit приложения на отдельном порту
+    port = os.getenv('PORT', 8501)
+    subprocess.Popen(["streamlit", "run", "app.py", "--server.port", str(port)])
+    return HTMLResponse(f"Streamlit app is running on port {port}...")
 
 #uvicorn main:app --reload
