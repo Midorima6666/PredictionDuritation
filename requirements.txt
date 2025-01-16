@@ -6,5 +6,4 @@ scikit-learn
 joblib
 folium
 streamlit-folium
-os
 threading
