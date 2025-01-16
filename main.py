@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+import threading
 import subprocess
 import os
 
@@ -21,9 +22,12 @@ async def read_root():
 
 @app.get("/streamlit")
 async def streamlit_app():
-    # Запуск Streamlit приложения на отдельном порту
+    # Запуск Streamlit приложения в отдельном потоке
     port = os.getenv('PORT', 8501)
-    subprocess.Popen(["streamlit", "run", "app.py", "--server.port", str(port)])
+    threading.Thread(target=lambda: subprocess.run(["streamlit", "run", "app.py", "--server.port", str(port)])).start()
     return HTMLResponse(f"Streamlit app is running on port {port}...")
+    # subprocess.Popen(["streamlit", "run", "app.py"])
+    # return HTMLResponse("Streamlit app is running...")
 
-#uvicorn main:app --reload
+#uvicorn main:app --reload 
+
